@@ -1,34 +1,23 @@
+public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 
-public ArrayList<Charge> chargeList = new ArrayList<Charge>();
+public ArrayList<Charge> chargeList;
 
-public float[][] xField = new float[1600][900];
-public float[][] yField = new float[1600][900];
-
-public float[][] xFieldRev = new float[1600][900];
-public float[][] yFieldRev = new float[1600][900];
-
-public boolean reversedField = false;
-public boolean launched = false;
-
-public int xStartPosition, yStartPosition;
+public boolean reversedField, launched;
 
 public Player player;
 public Cannon cannon;
 public Goal goal;
 
+public int level = 1;
+
 
 public void setup() {
   size(1600, 900);
 
-  xStartPosition = 500;
-  yStartPosition = 450;
+  reversedField = false;
+  launched = false;
+  updateLevel(parseLevelFile("level" + level));
 
-  player = new Player(xStartPosition, yStartPosition, 0, 0, -1, 30, launched);
-  cannon = new Cannon(xStartPosition, yStartPosition);
-  goal = new Goal(1000, 350, 1500, 550);
-
-  chargeList.add(new Charge(800, 600, 10, 60));
-  chargeList.add(new Charge(700, 300, -4, 60));
   sumElectricField();
 }
 
@@ -52,7 +41,8 @@ public void draw() {
   boolean checkWin = goal.checkWin(player);
 
   if (checkWin) {
-      text("You Win!", 1400, 300);
+      level++;
+      setup();
   }
 }
 
@@ -85,8 +75,8 @@ public void keyPressed() {
     }
 
     if (key == 'r') {
-        launched = false;
-        player = new Player(xStartPosition, yStartPosition, 0, 0, -1, 30, launched);
+        background(0);
+        setup();
     }
 
     if (key == 'l') {
@@ -100,4 +90,50 @@ public void keyPressed() {
         player.xVel = -x;
         player.yVel = -y;
     }
+}
+
+public Level parseLevelFile(String filename) {
+    String[] rawLevel = loadStrings("levels/" + filename);
+
+    Player player = new Player(0, 0, 0, 0, -1, 30, false);
+    Goal goal = new Goal(0, 0, 0, 0);
+    ArrayList<Charge> chargeList = new ArrayList<Charge>();
+
+    for (String row : rawLevel) {
+        String[] data = splitTokens(row);
+
+        if (data[0].equals("player")) {
+            int x = Integer.parseInt(data[1]);
+            int y = Integer.parseInt(data[2]);
+            int charge = Integer.parseInt(data[3]);
+
+            player = new Player(x, y, 0, 0, charge, 30, false);
+        }
+        else if (data[0].equals("goal")) {
+            int x1 = Integer.parseInt(data[1]);
+            int y1 = Integer.parseInt(data[2]);
+            int x2 = Integer.parseInt(data[3]);
+            int y2 = Integer.parseInt(data[4]);
+
+            goal = new Goal(x1, y1, x2, y2);
+        }
+        else if (data[0].equals("charge")) {
+            int x = Integer.parseInt(data[1]);
+            int y = Integer.parseInt(data[2]);
+            int charge = Integer.parseInt(data[3]);
+
+            chargeList.add(new Charge(x, y, charge, 60));
+        }
+    }
+
+    return new Level(player, goal, chargeList);
+}
+
+public void updateLevel(Level l) {
+    this.player = l.player;
+    this.cannon = l.cannon;
+    this.goal = l.goal;
+    this.chargeList = l.chargeList;
+
+    sumElectricField();
 }
