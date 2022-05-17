@@ -2,6 +2,7 @@
 public class Level {
 
     Player player;
+    Cannon cannon;
     Goal goal;
     ArrayList<Charge> chargeList;
 
@@ -10,8 +11,11 @@ public class Level {
         this.chargeList = chargeList;
         goal = new Goal(goalX1, goalY1, goalX2, goalY2);
     }
-}
 
-static Level parseLevelFile(String filename) {
-    
+    Level(Player player, Goal goal, ArrayList<Charge> chargeList) {
+        this.player = player;
+        this.goal = goal;
+        this.chargeList = chargeList;
+        cannon = new Cannon((int)player.x, (int)player.y);
+    }
 }

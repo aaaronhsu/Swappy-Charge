@@ -12,11 +12,11 @@ public class Goal {
 
     public void draw() {
         fill(0, 255, 0);
-        rect(x1, y1, abs(x2 - x1), abs(y2 - y1));
+        rect(min(x1, x2), min(y1, y2), abs(x2 - x1), abs(y2 - y1));
         fill(255);
     }
 
     public boolean checkWin(Player p) {
-        return p.x >= x1 && p.x <= x2 && p.y >= y1 && p.y <= y2;
+        return p.x >= min(x1, x2) && p.x <= max(x1, x2) && p.y >= min(y1, y2) && p.y <= max(y1, y2);
     } 
 }
