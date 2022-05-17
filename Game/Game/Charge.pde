@@ -40,6 +40,17 @@ public class Charge {
 
       circle(this.x, this.y, radius);
 
+      stroke(255);
+      strokeWeight(10);
+      if (this.charge > 0) {
+        line(x - 10, y, x + 10, y);
+        line(x, y - 10, x, y + 10);
+      } else {
+        line(x - 10, y, x + 10, y);
+      }
+      stroke(0);
+      strokeWeight(4);
+
       fill(255, 255, 255);
   }
 }

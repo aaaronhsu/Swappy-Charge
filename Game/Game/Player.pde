@@ -4,7 +4,7 @@ public class Player {
     float x, y, charge, radius;
     float xVel, yVel;
 
-    Player(float x, float y, float initialXVelocity, float initialYVelocity, float charge, float radius) {
+    Player(float x, float y, float initialXVelocity, float initialYVelocity, float charge, float radius, boolean launched) {
         this.x = x;
         this.y = y;
         this.xVel = initialXVelocity;
@@ -35,13 +35,15 @@ public class Player {
         y += yVel;
     }
 
-    public void draw(float[][] x_field, float[][] y_field, ArrayList<Charge> chargeList) {
+    public void draw(float[][] x_field, float[][] y_field, ArrayList<Charge> chargeList, boolean launched) {
         if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
             return;
         }
 
-        updateVelocity(x_field, y_field);
-        updatePosition(chargeList);
+        if (launched) {
+            updateVelocity(x_field, y_field);
+            updatePosition(chargeList);
+        }
 
         if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
             return;
@@ -50,5 +52,11 @@ public class Player {
         fill(255, 0, 0);
         circle(this.x, this.y, this.radius);
         fill(255, 255, 255);
+
+        stroke(255);
+        strokeWeight(6);
+        line(x - 6, y, x + 6, y);
+        strokeWeight(4);
+        stroke(0);
     }
 }
