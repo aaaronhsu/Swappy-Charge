@@ -28,6 +28,7 @@ public class Player {
             if (pythagorean(this.x, this.y, c.x, c.y) < (c.radius + this.radius) / 2) {
                 this.xVel = 0;
                 this.yVel = 0;
+                setup();
             }
         }
 
@@ -46,16 +47,29 @@ public class Player {
         }
 
         if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
+            setup();
             return;
         }
 
-        fill(255, 0, 0);
-        circle(this.x, this.y, this.radius);
-        fill(255, 255, 255);
 
         stroke(255);
-        strokeWeight(6);
-        line(x - 6, y, x + 6, y);
+        strokeWeight(2);
+
+        if (this.charge > 0) {
+          fill(0, 0, 255);
+          circle(this.x, this.y, this.radius);
+          strokeWeight(6);
+          line(x - 6, y, x + 6, y);
+          line(x, y - 6, x, y + 6);
+        }
+        else {
+          fill(255, 0, 0);
+          circle(this.x, this.y, this.radius);
+          strokeWeight(6);
+          line(x - 6, y, x + 6, y);
+        }
+
+        fill(255, 255, 255);        
         strokeWeight(4);
         stroke(0);
     }

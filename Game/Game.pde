@@ -92,6 +92,26 @@ public void keyPressed() {
     }
 }
 
+public void mousePressed() {
+  if (mouseButton == LEFT) {
+    launched = true;
+
+    float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
+
+    float x = cos(angle) * 5;
+    float y = sin(angle) * 5;
+
+    player.xVel = -x;
+    player.yVel = -y;
+  }
+  if (mouseButton == RIGHT) {
+    reversedField = !reversedField;
+    for (Charge c : chargeList) {
+        c.charge *= -1;
+    }
+  }
+}
+
 public Level parseLevelFile(String filename) {
     String[] rawLevel = loadStrings("levels/" + filename);
 

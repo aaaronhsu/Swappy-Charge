@@ -34,8 +34,10 @@ public class Charge {
   public void draw() {
       if (this.charge > 0) {
         fill(0, 0, 255);
+        stroke(0, 0, 100);
       } else {
         fill(255, 0, 0);
+        stroke(100, 0, 0);
       }
 
       circle(this.x, this.y, radius);
