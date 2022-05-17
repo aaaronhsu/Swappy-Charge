@@ -52,5 +52,11 @@ public class Player {
         fill(255, 0, 0);
         circle(this.x, this.y, this.radius);
         fill(255, 255, 255);
+
+        stroke(255);
+        strokeWeight(6);
+        line(x - 6, y, x + 6, y);
+        strokeWeight(4);
+        stroke(0);
     }
 }

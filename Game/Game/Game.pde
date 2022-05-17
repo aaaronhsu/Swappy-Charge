@@ -1,5 +1,6 @@
 
 public ArrayList<Charge> chargeList = new ArrayList<Charge>();
+
 public float[][] xField = new float[1600][900];
 public float[][] yField = new float[1600][900];
 
@@ -9,43 +10,50 @@ public float[][] yFieldRev = new float[1600][900];
 public boolean reversedField = false;
 public boolean launched = false;
 
-public int xStartPosition = 50;
-public int yStartPosition = 450;
+public int xStartPosition, yStartPosition;
 
-public Player player = new Player(xStartPosition, yStartPosition, 0, 0, -1, 30, launched);
-public Cannon cannon = new Cannon(xStartPosition, yStartPosition);
+public Player player;
+public Cannon cannon;
+public Goal goal;
 
 
 public void setup() {
   size(1600, 900);
 
-//   for (int i = 0; i < 5; i++) {
-//       chargeList.add(new Charge(i, i, i, 1));
-//   }
+  xStartPosition = 500;
+  yStartPosition = 450;
 
-    chargeList.add(new Charge(800, 600, 10, 60));
-    chargeList.add(new Charge(700, 300, -4, 60));
+  player = new Player(xStartPosition, yStartPosition, 0, 0, -1, 30, launched);
+  cannon = new Cannon(xStartPosition, yStartPosition);
+  goal = new Goal(1000, 350, 1500, 550);
+
+  chargeList.add(new Charge(800, 600, 10, 60));
+  chargeList.add(new Charge(700, 300, -4, 60));
   sumElectricField();
 }
 
 public void draw() {
   background(0, 0, 0);
-  
-//   text(xField[mouseX][mouseY] * 1000, 100, 100);
-//   text(yField[mouseX][mouseY] * 1000, 500, 100);
 
   for (Charge c : chargeList) {
       c.draw();
   }
 
   cannon.draw();
+  goal.draw();
 
-  if (!reversedField) {
-        player.draw(xField, yField, chargeList, launched);
-    }
-    else {
-        player.draw(xFieldRev, yFieldRev, chargeList, launched);
-    }
+  if (reversedField) {
+      player.draw(xFieldRev, yFieldRev, chargeList, launched);
+  }
+  else {
+      player.draw(xField, yField, chargeList, launched);
+  }
+
+  boolean checkWin = goal.checkWin(player);
+
+  if (checkWin) {
+      text("You Win!", 1400, 300);
+  }
 }
 
 public void sumElectricField() {
