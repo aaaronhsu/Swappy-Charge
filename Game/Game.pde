@@ -65,8 +65,15 @@ public void sumElectricField() {
                 xField[i][j] += c.xField[i][j];
                 yField[i][j] += c.yField[i][j];
 
-                xFieldRev[i][j] -= c.xField[i][j];
-                yFieldRev[i][j] -= c.yField[i][j];
+
+                if (c.isConstant) {
+                  xFieldRev[i][j] += c.xField[i][j];
+                  yFieldRev[i][j] += c.yField[i][j];
+                }
+                else {
+                  xFieldRev[i][j] -= c.xField[i][j];
+                  yFieldRev[i][j] -= c.yField[i][j];
+                }
             }
         }
     }
@@ -77,7 +84,7 @@ public void keyPressed() {
     if (key == 32) {
         reversedField = !reversedField;
         for (Charge c : chargeList) {
-            c.charge *= -1;
+            c.swapCharge();
         }
     }
 
@@ -125,7 +132,7 @@ public void mousePressed() {
   if (mouseButton == RIGHT) {
     reversedField = !reversedField;
     for (Charge c : chargeList) {
-        c.charge *= -1;
+        c.swapCharge();
     }
   }
 }
@@ -168,7 +175,16 @@ public Level parseLevelFile(String filename) {
             int y = Integer.parseInt(data[2]);
             int charge = Integer.parseInt(data[3]);
 
-            chargeList.add(new Charge(x, y, charge, 60));
+            chargeList.add(new Charge(x, y, charge, 60, false));
+        }
+
+        // stores constant charge info
+        else if (data[0].equals("constantcharge")) {
+          int x = Integer.parseInt(data[1]);
+          int y = Integer.parseInt(data[2]);
+          int charge = Integer.parseInt(data[3]);
+
+          chargeList.add(new Charge(x, y, charge, 60, true));
         }
     }
 

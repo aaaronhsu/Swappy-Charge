@@ -4,16 +4,18 @@ public class Charge {
 
   // characteristics of the charge
   int x, y, charge, radius;
+  boolean isConstant;
 
   // electric field the charge creates in unit vector notation
   float[][] xField = new float[1600][900];
   float[][] yField = new float[1600][900];
 
-  Charge(int x, int y, int initialCharge, int radius) {
+  Charge(int x, int y, int initialCharge, int radius, boolean isConstant) {
     this.x = x;
     this.y = y;
     this.charge = initialCharge;
     this.radius = radius;
+    this.isConstant = isConstant;
 
     generateElectricField();
   }
@@ -34,6 +36,11 @@ public class Charge {
     return (float) Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
   }
 
+  public void swapCharge() {
+    if (this.isConstant) return;
+    this.charge *= -1;
+  }
+
   public void draw() {
 
     // sets up colors and stroke for the charge
@@ -45,12 +52,23 @@ public class Charge {
         stroke(100, 0, 0);
       }
 
+      if (this.isConstant) {
+        fill(100, 100, 100);
+        if (this.charge > 0) {
+          stroke(0, 0, 255);
+        } else {
+          stroke(255, 0, 0);
+        }
+      }
+
     // draws the charge
       circle(this.x, this.y, radius);
 
     // draws the markings on the charge
+
       stroke(255);
-      strokeWeight(10);
+      strokeWeight(abs(this.charge));
+
       if (this.charge > 0) {
         line(x - 10, y, x + 10, y);
         line(x, y - 10, x, y + 10);
