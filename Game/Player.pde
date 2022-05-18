@@ -1,6 +1,7 @@
 
 public class Player {
 
+    // characteristics of a player
     float x, y, charge, radius;
     float xVel, yVel;
 
@@ -18,12 +19,13 @@ public class Player {
     }
 
     public void updateVelocity(float[][] x_field, float[][] y_field) {
+        // uses electric field to calculate acceleration
         xVel += x_field[(int)x][(int)y] * this.charge;
         yVel += y_field[(int)x][(int)y] * this.charge;
     }
 
     public void updatePosition(ArrayList<Charge> chargeList) {
-
+        // if the player is touching a charge, restart level
         for (Charge c : chargeList) {
             if (pythagorean(this.x, this.y, c.x, c.y) < (c.radius + this.radius) / 2) {
                 this.xVel = 0;
@@ -32,30 +34,34 @@ public class Player {
             }
         }
 
+        // uses velocity to calculate position
         x += xVel;
         y += yVel;
     }
 
     public void draw(float[][] x_field, float[][] y_field, ArrayList<Charge> chargeList, boolean launched) {
-        if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
-            return;
-        }
+        // if the player is out of bounds, restart level
+        if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) return;
 
+        // once the player is launched from the cannon, start calculating and updating the velocity and position of the player
         if (launched) {
             updateVelocity(x_field, y_field);
             updatePosition(chargeList);
         }
 
+        // if the player is out of bounds, restart level
         if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
             setup();
             return;
         }
 
-
+        // circumference of the player
         stroke(255);
         strokeWeight(2);
 
+        // draw the player
         if (this.charge > 0) {
+          // proton
           fill(0, 0, 255);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
@@ -63,6 +69,7 @@ public class Player {
           line(x, y - 6, x, y + 6);
         }
         else {
+          // electron
           fill(255, 0, 0);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);

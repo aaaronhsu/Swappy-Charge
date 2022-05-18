@@ -1,6 +1,7 @@
 
 public class Level {
 
+    // stores level data
     Player player;
     Cannon cannon;
     Goal goal;

@@ -10,11 +10,13 @@ public class Cannon {
     }
 
     public void draw() {
+      // draw body
         fill(100, 100, 100);
         circle(this.x, this.y, 50);
 
         float angle = atan2(mouseY - this.y, mouseX - this.x);
 
+      // draw barrel
         stroke(150, 150, 150);
         strokeWeight(20);
         line(this.x, this.y, cos(angle) * barrelLength + this.x, sin(angle) * barrelLength + this.y);

@@ -1,3 +1,4 @@
+// VARIABLE SETUP
 public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 
 public ArrayList<Charge> chargeList;
@@ -15,16 +16,19 @@ public void setup() {
   size(1600, 900);
   ellipseMode(CENTER);
 
+  // sets up map and player
   reversedField = false;
   launched = false;
   updateLevel(parseLevelFile("level" + level));
 
+  // generates electric fields
   sumElectricField();
 }
 
 public void draw() {
   background(0, 0, 0);
 
+  // draws charges, cannon, goal, and player
   for (Charge c : chargeList) {
       c.draw();
   }
@@ -39,21 +43,24 @@ public void draw() {
       player.draw(xField, yField, chargeList, launched);
   }
 
-  boolean checkWin = goal.checkWin(player);
 
-  if (checkWin) {
-      level++;
-      setup();
+  // next level
+  if (goal.checkWin(player)) {
+    level++;
+    setup();
   }
 }
 
 public void sumElectricField() {
+  // regular electric field
     xField = new float[1600][900];
     yField = new float[1600][900];
 
+  // swapped electric field
     xFieldRev = new float[1600][900];
     yFieldRev = new float[1600][900];
 
+  // sum electric fields
     for (Charge c : chargeList) {
         for (int i = 0; i < 1600; i++) {
             for (int j = 0; j < 900; j++) {
@@ -68,6 +75,7 @@ public void sumElectricField() {
 }
 
 public void keyPressed() {
+  // switches between regular and reversed electric field
     if (key == 'c') {
         reversedField = !reversedField;
         for (Charge c : chargeList) {
@@ -75,11 +83,13 @@ public void keyPressed() {
         }
     }
 
+  // resets level
     if (key == 'r') {
         background(0);
         setup();
     }
 
+  // launches player from cannon
     if (key == 'l' && !launched) {
         launched = true;
 
@@ -92,6 +102,7 @@ public void keyPressed() {
         player.yVel = -y;
     }
 
+  // skips level
     if (key == 's') {
       level++;
       setup();
@@ -99,6 +110,7 @@ public void keyPressed() {
 }
 
 public void mousePressed() {
+  // launches player from cannon
   if (mouseButton == LEFT && !launched) {
     launched = true;
 
@@ -110,6 +122,8 @@ public void mousePressed() {
     player.xVel = -x;
     player.yVel = -y;
   }
+
+  // switches between regular and reversed electric field
   if (mouseButton == RIGHT) {
     reversedField = !reversedField;
     for (Charge c : chargeList) {
@@ -119,15 +133,19 @@ public void mousePressed() {
 }
 
 public Level parseLevelFile(String filename) {
+  // reads map data
     String[] rawLevel = loadStrings("levels/" + filename);
 
+  // creates level variables
     Player player = new Player(0, 0, 0, 0, -1, 30, false);
     Goal goal = new Goal(0, 0, 0, 0);
     ArrayList<Charge> chargeList = new ArrayList<Charge>();
 
+  // parses map data
     for (String row : rawLevel) {
         String[] data = splitTokens(row);
 
+        // stores player info
         if (data[0].equals("player")) {
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
@@ -135,6 +153,8 @@ public Level parseLevelFile(String filename) {
 
             player = new Player(x, y, 0, 0, charge, 30, false);
         }
+
+        // stores goal info
         else if (data[0].equals("goal")) {
             int x1 = Integer.parseInt(data[1]);
             int y1 = Integer.parseInt(data[2]);
@@ -143,6 +163,8 @@ public Level parseLevelFile(String filename) {
 
             goal = new Goal(x1, y1, x2, y2);
         }
+
+        // stores charge info
         else if (data[0].equals("charge")) {
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
@@ -156,6 +178,7 @@ public Level parseLevelFile(String filename) {
 }
 
 public void updateLevel(Level l) {
+  // takes level variables and updates game
     this.player = l.player;
     this.cannon = l.cannon;
     this.goal = l.goal;
