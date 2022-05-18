@@ -74,7 +74,7 @@ public void sumElectricField() {
 
 public void keyPressed() {
   // switches between regular and reversed electric field
-    if (key == 'c') {
+    if (key == 32) {
         reversedField = !reversedField;
         for (Charge c : chargeList) {
             c.charge *= -1;
@@ -82,13 +82,13 @@ public void keyPressed() {
     }
 
   // resets level
-    if (key == 'r') {
+    if (key == 8) {
         background(0);
         setup();
     }
 
   // launches player from cannon
-    if (key == 'l' && !launched) {
+    if (key == 'g' && !launched) {
         launched = true;
 
         float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
