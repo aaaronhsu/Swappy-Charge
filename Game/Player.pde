@@ -31,6 +31,7 @@ public class Player {
                 this.xVel = 0;
                 this.yVel = 0;
                 setup();
+                return;
             }
         }
 
@@ -39,9 +40,12 @@ public class Player {
         y += yVel;
     }
 
-    public void draw(float[][] x_field, float[][] y_field, ArrayList<Charge> chargeList, boolean launched) {
+    public void draw(float[][] x_field, float[][] y_field, ArrayList<Charge> chargeList, boolean launched, Level currentLevel) {
         // if the player is out of bounds, restart level
-        if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) return;
+        if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
+          setup();
+          return;
+        }
 
         // once the player is launched from the cannon, start calculating and updating the velocity and position of the player
         if (launched) {
@@ -51,8 +55,8 @@ public class Player {
 
         // if the player is out of bounds, restart level
         if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
-            setup();
-            return;
+          setup();
+          return;
         }
 
         // circumference of the player

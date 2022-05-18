@@ -10,6 +10,7 @@ public Cannon cannon;
 public Goal goal;
 
 public int level = 1;
+public Level currentLevel;
 
 
 public void setup() {
@@ -20,9 +21,6 @@ public void setup() {
   reversedField = false;
   launched = false;
   updateLevel(parseLevelFile("level" + level));
-
-  // generates electric fields
-  sumElectricField();
 }
 
 public void draw() {
@@ -37,10 +35,10 @@ public void draw() {
   goal.draw();
 
   if (reversedField) {
-      player.draw(xFieldRev, yFieldRev, chargeList, launched);
+      player.draw(xFieldRev, yFieldRev, chargeList, launched, currentLevel);
   }
   else {
-      player.draw(xField, yField, chargeList, launched);
+      player.draw(xField, yField, chargeList, launched, currentLevel);
   }
 
 
@@ -174,7 +172,7 @@ public Level parseLevelFile(String filename) {
         }
     }
 
-    return new Level(player, goal, chargeList);
+    return new Level(player, goal, chargeList, int(filename.substring(filename.length() - 1)));
 }
 
 public void updateLevel(Level l) {
