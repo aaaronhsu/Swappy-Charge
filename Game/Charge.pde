@@ -14,7 +14,7 @@ public class Charge {
     this.x = x;
     this.y = y;
     this.charge = initialCharge;
-    this.radius = (int) (radius * ((float) abs(initialCharge) / 10));
+    this.radius = (int) (radius * ((float) abs(initialCharge) / 10)) + 1;
     this.isConstant = isConstant;
 
     generateElectricField();
@@ -54,11 +54,7 @@ public class Charge {
 
       if (this.isConstant) {
         fill(100, 100, 100);
-        if (this.charge > 0) {
-          stroke(0, 0, 255);
-        } else {
-          stroke(255, 0, 0);
-        }
+        stroke(100, 100, 100);
       }
 
     // draws the charge
