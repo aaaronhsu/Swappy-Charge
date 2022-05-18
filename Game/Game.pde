@@ -13,6 +13,7 @@ public int level = 1;
 
 public void setup() {
   size(1600, 900);
+  ellipseMode(CENTER);
 
   reversedField = false;
   launched = false;
@@ -79,7 +80,7 @@ public void keyPressed() {
         setup();
     }
 
-    if (key == 'l') {
+    if (key == 'l' && !launched) {
         launched = true;
 
         float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
@@ -90,10 +91,15 @@ public void keyPressed() {
         player.xVel = -x;
         player.yVel = -y;
     }
+
+    if (key == 's') {
+      level++;
+      setup();
+    }
 }
 
 public void mousePressed() {
-  if (mouseButton == LEFT) {
+  if (mouseButton == LEFT && !launched) {
     launched = true;
 
     float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
