@@ -2,6 +2,7 @@
 public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 
 public ArrayList<Charge> chargeList;
+public ArrayList<Wall> wallList;
 
 public boolean reversedField, launched;
 
@@ -9,7 +10,7 @@ public Player player;
 public Cannon cannon;
 public Goal goal;
 
-public int level = 1;
+public int level = 6;
 public Level currentLevel;
 
 
@@ -30,6 +31,9 @@ public void draw() {
   for (Charge c : chargeList) {
       c.draw();
   }
+  for (Wall w : wallList) {
+    w.draw();
+  }
 
   cannon.draw();
   goal.draw();
@@ -41,6 +45,13 @@ public void draw() {
       player.draw(xField, yField, chargeList, launched, currentLevel);
   }
 
+  // check wall collision
+  for (Wall w : wallList) {
+    if (w.isTouchingPlayer(player)) {
+      setup();
+      return;
+    }
+  }
 
   // next level
   if (goal.checkWin(player)) {
@@ -145,6 +156,7 @@ public Level parseLevelFile(String filename) {
     Player player = new Player(0, 0, 0, 0, -1, 30, false);
     Goal goal = new Goal(0, 0, 0, 0);
     ArrayList<Charge> chargeList = new ArrayList<Charge>();
+    ArrayList<Wall> wallList = new ArrayList<Wall>();
 
   // parses map data
     for (String row : rawLevel) {
@@ -186,9 +198,19 @@ public Level parseLevelFile(String filename) {
 
           chargeList.add(new Charge(x, y, charge, 60, true));
         }
+
+        else if (data[0].equals("wall")) {
+          int x1 = Integer.parseInt(data[1]);
+          int y1 = Integer.parseInt(data[2]);
+          int x2 = Integer.parseInt(data[3]);
+          int y2 = Integer.parseInt(data[4]);
+          int thickness = Integer.parseInt(data[5]);
+
+          wallList.add(new Wall(x1, y1, x2, y2, thickness));
+        }
     }
 
-    return new Level(player, goal, chargeList, int(filename.substring(filename.length() - 1)));
+    return new Level(player, goal, chargeList, wallList, int(filename.substring(filename.length() - 1)));
 }
 
 public void updateLevel(Level l) {
@@ -197,6 +219,7 @@ public void updateLevel(Level l) {
     this.cannon = l.cannon;
     this.goal = l.goal;
     this.chargeList = l.chargeList;
+    this.wallList = l.wallList;
 
     sumElectricField();
 }

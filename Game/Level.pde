@@ -6,6 +6,7 @@ public class Level {
     Cannon cannon;
     Goal goal;
     ArrayList<Charge> chargeList;
+    ArrayList<Wall> wallList;
 
     int levelNum;
 
@@ -16,11 +17,12 @@ public class Level {
         this.levelNum = levelNum;
     }
 
-    Level(Player player, Goal goal, ArrayList<Charge> chargeList, int levelNum) {
+    Level(Player player, Goal goal, ArrayList<Charge> chargeList, ArrayList<Wall> wallList, int levelNum) {
         this.player = player;
         this.goal = goal;
         this.chargeList = chargeList;
         cannon = new Cannon((int)player.x, (int)player.y);
         this.levelNum = levelNum;
+        this.wallList = wallList;
     }
 }
