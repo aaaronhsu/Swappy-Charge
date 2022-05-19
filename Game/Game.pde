@@ -10,12 +10,12 @@ public Player player;
 public Cannon cannon;
 public Goal goal;
 
-public int level = 6;
+public int level = 1;
 public Level currentLevel;
 
 
 public void setup() {
-  size(1600, 900);
+  size(1000, 800);
   ellipseMode(CENTER);
 
   // sets up map and player

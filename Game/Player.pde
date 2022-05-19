@@ -42,7 +42,7 @@ public class Player {
 
     public void draw(float[][] x_field, float[][] y_field, ArrayList<Charge> chargeList, boolean launched, Level currentLevel) {
         // if the player is out of bounds, restart level
-        if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
+        if (this.x < 0 || this.x > 1000 || this.y < 0 || this.y > 800) {
           setup();
           return;
         }
@@ -54,7 +54,7 @@ public class Player {
         }
 
         // if the player is out of bounds, restart level
-        if (this.x < 0 || this.x > 1600 || this.y < 0 || this.y > 900) {
+        if (this.x < 0 || this.x > 1000 || this.y < 0 || this.y > 800) {
           setup();
           return;
         }

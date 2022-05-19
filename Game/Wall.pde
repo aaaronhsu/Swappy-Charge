@@ -32,7 +32,7 @@ public class Wall {
 
         // float quadForm = quadraticFormula(a, b, c);
         
-        return 0 <= quadForm && quadForm <= 1;
+        // return 0 <= quadForm && quadForm <= 1;
         
     }
 

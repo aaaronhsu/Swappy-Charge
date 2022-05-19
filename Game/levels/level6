@@ -1,6 +1,6 @@
 player 100 100 1
-goal 1000 500 1300 700
+goal 700 500 1000 700
 constantcharge 285 196 -3
 charge 175 563 10
-constantcharge 1106 769 2
+constantcharge 700 769 2
 charge 580 38 -5
