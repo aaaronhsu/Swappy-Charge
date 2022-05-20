@@ -13,13 +13,13 @@ public class Wall {
 
 
     public boolean isTouchingPlayer(Player p) {
-        float a = (float)(y2 - y1) / (float)(x2 - x1);
-        float b = -1;
-        float c = ((float)(y1 - y2) / (float)(x2 - x1)) * x1 + y1;
+        // float a = (float)(y2 - y1) / (float)(x2 - x1);
+        // float b = -1;
+        // float c = ((float)(y1 - y2) / (float)(x2 - x1)) * x1 + y1;
 
-        double dist = Math.abs(a * p.x + b * p.y + c) / Math.sqrt(a * a + b * b);
+        // double dist = Math.abs(a * p.x + b * p.y + c) / Math.sqrt(a * a + b * b);
 
-        return p.radius >= dist;
+        // return p.radius >= dist;
 
         // float a = x1*x1 - 2*x1*x2 + x2*x2;
         // float b = 2*x1*x2 - 2*x2*x2 - 2*p.x*x2 + 2*p.x*x2;
@@ -33,6 +33,8 @@ public class Wall {
         // float quadForm = quadraticFormula(a, b, c);
         
         // return 0 <= quadForm && quadForm <= 1;
+
+        return p.x + (p.radius + thickness) / 2 >= min(x1, x2) && p.x - (p.radius + thickness) / 2 <= max(x1, x2) && p.y + (p.radius + thickness) / 2 >= min(y1, y2) && p.y - (p.radius + thickness) / 2 <= max(y1, y2);
         
     }
 
