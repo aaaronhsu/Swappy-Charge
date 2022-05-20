@@ -1,4 +1,4 @@
-player 500 450 1
-goal 1100 200 1500 700
-charge 300 300 -5
-charge 300 600 -5
+player 150 400 1
+goal 800 300 1000 500
+charge 75 300 -5
+charge 75 500 -5
