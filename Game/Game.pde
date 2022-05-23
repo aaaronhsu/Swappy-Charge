@@ -4,6 +4,7 @@ public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 public ArrayList<Charge> chargeList;
 public ArrayList<Wall> wallList;
 public ArrayList<PickupCharge> pickupChargeList;
+public ArrayList<Pit> pitList;
 
 public boolean reversedField, launched;
 
@@ -55,6 +56,9 @@ public void draw() {
   for (Wall w : wallList) {
     w.draw();
   }
+  for (Pit p : pitList) {
+    p.draw();
+  }
 
   cannon.draw();
   goal.draw();
@@ -66,10 +70,25 @@ public void draw() {
       player.draw(xField, yField, chargeList, launched, currentLevel);
   }
 
+  // check pit collision
+  for (Pit p : pitList) {
+    if (p.isTouchingPlayer(player)) {
+      setup();
+      return;
+    }
+  }
+
   // check wall collision
   for (Wall w : wallList) {
     if (w.isTouchingPlayer(player)) {
-      setup();
+      if (w.stopXVelocity(player)) {
+        // player.xVel = 0;
+        player.xVel *= -1;
+      }
+      else {
+        // player.yVel = 0;
+        player.yVel *= -1;
+      }
       return;
     }
   }
@@ -179,6 +198,7 @@ public Level parseLevelFile(String filename) {
     ArrayList<Charge> chargeList = new ArrayList<Charge>();
     ArrayList<Wall> wallList = new ArrayList<Wall>();
     ArrayList<PickupCharge> pickupChargeList = new ArrayList<PickupCharge>();
+    ArrayList<Pit> pitList = new ArrayList<Pit>();
 
   // parses map data
     for (String row : rawLevel) {
@@ -238,9 +258,19 @@ public Level parseLevelFile(String filename) {
 
           wallList.add(new Wall(x1, y1, x2, y2, thickness));
         }
-    }
 
-    return new Level(player, goal, chargeList, pickupChargeList, wallList, int(filename.substring(filename.length() - 1)));
+        else if (data[0].equals("pit")) {
+          int x1 = Integer.parseInt(data[1]);
+          int y1 = Integer.parseInt(data[2]);
+          int x2 = Integer.parseInt(data[3]);
+          int y2 = Integer.parseInt(data[4]);
+          int thickness = Integer.parseInt(data[5]);
+
+          pitList.add(new Pit(x1, y1, x2, y2, thickness));
+        }
+    }
+    
+    return new Level(player, goal, chargeList, pickupChargeList, wallList, pitList, int(filename.substring(filename.length() - 1)));
 }
 
 public void updateLevel(Level l) {
@@ -251,6 +281,7 @@ public void updateLevel(Level l) {
     this.chargeList = l.chargeList;
     this.pickupChargeList = l.pickupChargeList;
     this.wallList = l.wallList;
+    this.pitList = l.pitList;
 
     sumElectricField();
 }
