@@ -20,7 +20,7 @@ public class PickupCharge {
 
     public void draw() {
         // circumference of the charge
-        stroke(0, 255, 0);
+        stroke(255, 255, 0);
         strokeWeight(2);
 
         // draw the charge
