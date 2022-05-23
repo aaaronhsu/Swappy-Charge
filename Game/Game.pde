@@ -3,6 +3,7 @@ public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 
 public ArrayList<Charge> chargeList;
 public ArrayList<Wall> wallList;
+public ArrayList<PickupCharge> pickupChargeList;
 public ArrayList<Pit> pitList;
 
 public boolean reversedField, launched;
@@ -32,6 +33,26 @@ public void draw() {
   for (Charge c : chargeList) {
       c.draw();
   }
+
+  ArrayList<PickupCharge> removeList = new ArrayList<PickupCharge>();
+  for (PickupCharge c : pickupChargeList) {
+    c.draw();
+
+    if (c.isTouchingPlayer(player)) {
+      player.charge += c.charge;
+      player.radius = sqrt((abs(player.charge * 100))) + 30;
+
+      if (abs(player.charge) <= 1) {
+        player.radius = 30;
+      }
+
+      removeList.add(c);
+    }
+  }
+  for (PickupCharge c : removeList) {
+    pickupChargeList.remove(c);
+  }
+
   for (Wall w : wallList) {
     w.draw();
   }
@@ -176,6 +197,7 @@ public Level parseLevelFile(String filename) {
     Goal goal = new Goal(0, 0, 0, 0);
     ArrayList<Charge> chargeList = new ArrayList<Charge>();
     ArrayList<Wall> wallList = new ArrayList<Wall>();
+    ArrayList<PickupCharge> pickupChargeList = new ArrayList<PickupCharge>();
     ArrayList<Pit> pitList = new ArrayList<Pit>();
 
   // parses map data
@@ -219,6 +241,14 @@ public Level parseLevelFile(String filename) {
           chargeList.add(new Charge(x, y, charge, 60, true));
         }
 
+        else if (data[0].equals("pickupcharge")) {
+          int x = Integer.parseInt(data[1]);
+          int y = Integer.parseInt(data[2]);
+          int charge = Integer.parseInt(data[3]);
+
+          pickupChargeList.add(new PickupCharge(x, y, charge));
+        }
+
         else if (data[0].equals("wall")) {
           int x1 = Integer.parseInt(data[1]);
           int y1 = Integer.parseInt(data[2]);
@@ -239,8 +269,8 @@ public Level parseLevelFile(String filename) {
           pitList.add(new Pit(x1, y1, x2, y2, thickness));
         }
     }
-
-    return new Level(player, goal, chargeList, wallList, pitList, int(filename.substring(filename.length() - 1)));
+    
+    return new Level(player, goal, chargeList, pickupChargeList, wallList, pitList, int(filename.substring(filename.length() - 1)));
 }
 
 public void updateLevel(Level l) {
@@ -249,6 +279,7 @@ public void updateLevel(Level l) {
     this.cannon = l.cannon;
     this.goal = l.goal;
     this.chargeList = l.chargeList;
+    this.pickupChargeList = l.pickupChargeList;
     this.wallList = l.wallList;
     this.pitList = l.pitList;
 

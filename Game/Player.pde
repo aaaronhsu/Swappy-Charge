@@ -72,12 +72,17 @@ public class Player {
           line(x - 6, y, x + 6, y);
           line(x, y - 6, x, y + 6);
         }
-        else {
+        else if (this.charge < 0) {
           // electron
           fill(255, 0, 0);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           line(x - 6, y, x + 6, y);
+        }
+        else {
+            // neutral
+            fill(200);
+            circle(this.x, this.y, this.radius);
         }
 
         fill(255, 255, 255);        
