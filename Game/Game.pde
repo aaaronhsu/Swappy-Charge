@@ -39,6 +39,12 @@ public void draw() {
 
     if (c.isTouchingPlayer(player)) {
       player.charge += c.charge;
+      player.radius = sqrt((abs(player.charge * 100))) + 30;
+
+      if (abs(player.charge) <= 1) {
+        player.radius = 30;
+      }
+
       removeList.add(c);
     }
   }
