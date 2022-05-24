@@ -8,39 +8,80 @@ public ArrayList<Pit> pitList;
 
 public boolean reversedField, launched;
 
+public StartButton sb;
+
 public Player player;
 public Cannon cannon;
 public Goal goal;
 
-public int level = 1;
+public int level = 0;
 public Level currentLevel;
+
+public boolean controlsScreen = false;
 
 
 public void setup() {
   size(1000, 800);
   ellipseMode(CENTER);
+  sb = new StartButton(width/2 - 100, height/2 - 50, width/2 + 100, height/2 + 50);
 
   // sets up map and player
   reversedField = false;
   launched = false;
-  updateLevel(parseLevelFile("level" + level));
+
+  if (level > 0) {
+    updateLevel(parseLevelFile("level" + level));
+  }
 }
 
 public void draw() {
   background(0, 0, 0);
 
-  drawElements();
+  if (level > 0) {
+    drawElements();
+    checkCollisions();
 
-  checkCollisions();
+    // next level
+    if (goal.checkWin(player)) {
+      level++;
+      setup();
+    }
+  }
+  else if (level == 0) {
+    drawTitle();
+  }
+  else if (level < 0) {
+    drawGameOver();
+  }
 
-  // next level
-  if (goal.checkWin(player)) {
-    level++;
-    setup();
+
+  if (controlsScreen) {
+    drawControls();
   }
 }
 
+public void drawTitle() {
+  sb.draw();
+}
 
+public void drawGameOver() {
+  textSize(100);
+  textAlign(CENTER);
+  fill(255, 0, 0);
+  text("GAME OVER", width/2, height/2);
+}
+
+public void drawControls() {
+  textSize(50);
+  textAlign(CENTER);
+  fill(255, 0, 0);
+  text("CONTROLS", width/2, height/2 - 100);
+  textSize(25);
+  text("Aim: CURSOR", width/2, height/2 - 50);
+  text("Shoot: LEFT CLICK", width/2, height/2);
+  text("Flip Charges: SPACE", width/2, height/2 + 50);
+  text("Restart Level: BACKSPACE", width/2, height/2 + 100);
+}
 
 /* DRAWS ELEMENTS */
 public void drawElements() {
@@ -258,6 +299,8 @@ public void updateLevel(Level l) {
 /* USER INPUT */
 public void keyPressed() {
   // switches between regular and reversed electric field
+
+  if (level > 0) {
     if (key == 32) {
         reversedField = !reversedField;
         for (Charge c : chargeList) {
@@ -276,25 +319,36 @@ public void keyPressed() {
       level++;
       setup();
     }
+  }
 }
 
 public void mousePressed() {
-  // launches player from cannon on left click
-  if (mouseButton == LEFT && !launched) {
-    launched = true;
 
-    float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
+  if (level > 0) {
+    // launches player from cannon on left click
+    if (mouseButton == LEFT && !launched) {
+      launched = true;
 
-    float x = cos(angle) * 5;
-    float y = sin(angle) * 5;
+      float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
 
-    player.xVel = -x;
-    player.yVel = -y;
+      float x = cos(angle) * 5;
+      float y = sin(angle) * 5;
+
+      player.xVel = -x;
+      player.yVel = -y;
+    }
+
+    // restarts level on right click
+    if (mouseButton == RIGHT) {
+      background(0);
+      setup();
+    }
   }
 
-  // restarts level on right click
-  if (mouseButton == RIGHT) {
-    background(0);
-    setup();
+  if (level == 0 && mouseButton == LEFT) {
+    if (sb.isClicked(mouseX, mouseY)) {
+      level = 1;
+      setup();
+    }
   }
 }
