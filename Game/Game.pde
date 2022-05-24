@@ -361,7 +361,7 @@ public void mousePressed() {
     }
   }
 
-  if (mouseButton == LEFT) {
+  if (level == 0 && mouseButton == LEFT) {
     if (controlsButton.isClicked(mouseX, mouseY)) {
       controlsScreen = !controlsScreen;
     }
