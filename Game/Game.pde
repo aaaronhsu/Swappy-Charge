@@ -8,7 +8,8 @@ public ArrayList<Pit> pitList;
 
 public boolean reversedField, launched;
 
-public StartButton sb;
+public Button startButton;
+public Button controlsButton;
 
 public Player player;
 public Cannon cannon;
@@ -23,7 +24,8 @@ public boolean controlsScreen = false;
 public void setup() {
   size(1000, 800);
   ellipseMode(CENTER);
-  sb = new StartButton(width/2 - 100, height/2 - 50, width/2 + 100, height/2 + 50);
+  startButton = new Button(width/2 - 300, height/2 - 50, width/2 - 100, height/2 + 50, "Start");
+  controlsButton = new Button(width/2 + 100, height/2 - 50, width/2 + 300, height/2 + 50, "Controls");
 
   // sets up map and player
   reversedField = false;
@@ -49,6 +51,7 @@ public void draw() {
   }
   else if (level == 0) {
     drawTitle();
+    controlsButton.draw();
   }
   else if (level < 0) {
     drawGameOver();
@@ -61,7 +64,7 @@ public void draw() {
 }
 
 public void drawTitle() {
-  sb.draw();
+  startButton.draw();
 }
 
 public void drawGameOver() {
@@ -73,14 +76,16 @@ public void drawGameOver() {
 
 public void drawControls() {
   textSize(50);
-  textAlign(CENTER);
+  // textAlign(CENTER);
   fill(255, 0, 0);
-  text("CONTROLS", width/2, height/2 - 100);
+  // text("CONTROLS", 20, 680 - 100);
   textSize(25);
-  text("Aim: CURSOR", width/2, height/2 - 50);
-  text("Shoot: LEFT CLICK", width/2, height/2);
-  text("Flip Charges: SPACE", width/2, height/2 + 50);
-  text("Restart Level: BACKSPACE", width/2, height/2 + 100);
+  text("Aim: CURSOR", 20, 680 - 50);
+  text("Shoot: LEFT CLICK", 20, 680);
+  text("Flip Charges: SPACE", 20, 680 + 50);
+  text("Restart Level: BACKSPACE", 20, 680 + 100);
+
+  // textAlign(LEFT);
 }
 
 /* DRAWS ELEMENTS */
@@ -320,6 +325,10 @@ public void keyPressed() {
       setup();
     }
   }
+
+  if (key == 'c') {
+    controlsScreen = !controlsScreen;
+  }
 }
 
 public void mousePressed() {
@@ -346,9 +355,15 @@ public void mousePressed() {
   }
 
   if (level == 0 && mouseButton == LEFT) {
-    if (sb.isClicked(mouseX, mouseY)) {
+    if (startButton.isClicked(mouseX, mouseY)) {
       level = 1;
       setup();
+    }
+  }
+
+  if (mouseButton == LEFT) {
+    if (controlsButton.isClicked(mouseX, mouseY)) {
+      controlsScreen = !controlsScreen;
     }
   }
 }
