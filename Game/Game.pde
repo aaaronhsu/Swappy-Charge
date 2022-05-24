@@ -29,11 +29,52 @@ public void setup() {
 public void draw() {
   background(0, 0, 0);
 
-  // draws charges, cannon, goal, and player
+  drawElements();
+
+  checkCollisions();
+
+  // next level
+  if (goal.checkWin(player)) {
+    level++;
+    setup();
+  }
+}
+
+
+
+/* DRAWS ELEMENTS */
+public void drawElements() {
   for (Charge c : chargeList) {
       c.draw();
   }
+  for (Wall w : wallList) {
+    w.draw();
+  }
+  for (Pit p : pitList) {
+    p.draw();
+  }
 
+  cannon.draw();
+  goal.draw();
+
+  if (reversedField) {
+      player.draw(xFieldRev, yFieldRev, chargeList, launched, currentLevel);
+  }
+  else {
+      player.draw(xField, yField, chargeList, launched, currentLevel);
+  }
+}
+
+
+
+/* CHECKS COLLISIONS */
+public void checkCollisions() {
+  checkPickupChargeCollision();
+  checkPitCollision();
+  checkWallCollsion();
+}
+
+public void checkPickupChargeCollision() {
   ArrayList<PickupCharge> removeList = new ArrayList<PickupCharge>();
   for (PickupCharge c : pickupChargeList) {
     c.draw();
@@ -52,24 +93,9 @@ public void draw() {
   for (PickupCharge c : removeList) {
     pickupChargeList.remove(c);
   }
+}
 
-  for (Wall w : wallList) {
-    w.draw();
-  }
-  for (Pit p : pitList) {
-    p.draw();
-  }
-
-  cannon.draw();
-  goal.draw();
-
-  if (reversedField) {
-      player.draw(xFieldRev, yFieldRev, chargeList, launched, currentLevel);
-  }
-  else {
-      player.draw(xField, yField, chargeList, launched, currentLevel);
-  }
-
+public void checkPitCollision() {
   // check pit collision
   for (Pit p : pitList) {
     if (p.isTouchingPlayer(player)) {
@@ -77,7 +103,9 @@ public void draw() {
       return;
     }
   }
+}
 
+public void checkWallCollsion() {
   // check wall collision
   for (Wall w : wallList) {
     if (w.isTouchingPlayer(player)) {
@@ -92,14 +120,11 @@ public void draw() {
       return;
     }
   }
-
-  // next level
-  if (goal.checkWin(player)) {
-    level++;
-    setup();
-  }
 }
 
+
+
+/* UPDATES LEVEL */
 public void sumElectricField() {
   // regular electric field
     xField = new float[1600][900];
@@ -128,64 +153,6 @@ public void sumElectricField() {
             }
         }
     }
-}
-
-public void keyPressed() {
-  // switches between regular and reversed electric field
-    if (key == 32) {
-        reversedField = !reversedField;
-        for (Charge c : chargeList) {
-            c.swapCharge();
-        }
-    }
-
-  // resets level
-    if (key == 8) {
-        background(0);
-        setup();
-    }
-
-  // launches player from cannon
-    if (key == 'g' && !launched) {
-        launched = true;
-
-        float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
-
-        float x = cos(angle) * 5;
-        float y = sin(angle) * 5;
-
-        player.xVel = -x;
-        player.yVel = -y;
-    }
-
-  // skips level
-    if (key == 's') {
-      level++;
-      setup();
-    }
-}
-
-public void mousePressed() {
-  // launches player from cannon
-  if (mouseButton == LEFT && !launched) {
-    launched = true;
-
-    float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
-
-    float x = cos(angle) * 5;
-    float y = sin(angle) * 5;
-
-    player.xVel = -x;
-    player.yVel = -y;
-  }
-
-  // switches between regular and reversed electric field
-  if (mouseButton == RIGHT) {
-    reversedField = !reversedField;
-    for (Charge c : chargeList) {
-        c.swapCharge();
-    }
-  }
 }
 
 public Level parseLevelFile(String filename) {
@@ -284,4 +251,50 @@ public void updateLevel(Level l) {
     this.pitList = l.pitList;
 
     sumElectricField();
+}
+
+
+
+/* USER INPUT */
+public void keyPressed() {
+  // switches between regular and reversed electric field
+    if (key == 32) {
+        reversedField = !reversedField;
+        for (Charge c : chargeList) {
+            c.swapCharge();
+        }
+    }
+
+  // resets level on backspace
+    if (key == 8) {
+        background(0);
+        setup();
+    }
+
+  // skips level
+    if (key == 's') {
+      level++;
+      setup();
+    }
+}
+
+public void mousePressed() {
+  // launches player from cannon on left click
+  if (mouseButton == LEFT && !launched) {
+    launched = true;
+
+    float angle = atan2(cannon.y - mouseY, cannon.x - mouseX);
+
+    float x = cos(angle) * 5;
+    float y = sin(angle) * 5;
+
+    player.xVel = -x;
+    player.yVel = -y;
+  }
+
+  // restarts level on right click
+  if (mouseButton == RIGHT) {
+    background(0);
+    setup();
+  }
 }
