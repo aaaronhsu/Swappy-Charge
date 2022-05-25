@@ -4,6 +4,7 @@ public class Player {
     // characteristics of a player
     float x, y, charge, radius;
     float xVel, yVel;
+    int mass;
 
     Player(float x, float y, float initialXVelocity, float initialYVelocity, float charge, float radius, boolean launched) {
         this.x = x;
@@ -12,6 +13,7 @@ public class Player {
         this.yVel = initialYVelocity;
         this.charge = charge;
         this.radius = radius;
+        this.mass = 1;
     }
 
     public float pythagorean(float x1, float y1, float x2, float y2) {

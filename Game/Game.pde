@@ -129,6 +129,9 @@ public void checkPickupChargeCollision() {
       player.charge += c.charge;
       player.radius = sqrt((abs(player.charge * 100))) + 30;
 
+      player.xVel *= (float) player.mass / (player.mass + 1);
+      player.yVel *= (float) player.mass / (player.mass + 1);
+
       if (abs(player.charge) <= 1) {
         player.radius = 30;
       }
