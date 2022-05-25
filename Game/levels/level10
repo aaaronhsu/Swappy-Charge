@@ -1,0 +1,13 @@
+player 500 100 1
+goal 400 700 600 750
+wall 300 100 300 700 10
+wall 700 100 700 700 10
+constantcharge 200 200 -5
+constantcharge 800 600 -5
+charge 200 600 5
+charge 800 400 5
+charge 800 200 -5
+charge 200 400 -5
+pit 475 200 525 200 5
+pit 475 350 525 350 5
+pit 475 500 525 500 5
