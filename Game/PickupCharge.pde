@@ -26,7 +26,8 @@ public class PickupCharge {
         // draw the charge
         if (this.charge > 0) {
           // proton
-          fill(0, 0, 255);
+          fill(#5386E4);
+          stroke(#5386F4);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           stroke(255);
@@ -35,7 +36,8 @@ public class PickupCharge {
         }
         else {
           // electron
-          fill(255, 0, 0);
+          fill(#F25757);
+          stroke(#FF5757);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           stroke(255);

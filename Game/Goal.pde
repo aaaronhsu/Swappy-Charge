@@ -12,8 +12,8 @@ public class Goal {
     }
 
     public void draw() {
-        fill(0, 255, 0);
-        rect(min(x1, x2), min(y1, y2), abs(x2 - x1), abs(y2 - y1));
+        fill(#618B4A);
+        rect(min(x1, x2), min(y1, y2), abs(x2 - x1), abs(y2 - y1), 10);
         fill(255);
     }
 

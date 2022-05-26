@@ -56,7 +56,7 @@ public class Player {
         }
 
         // if the player is out of bounds, restart level
-        if (this.x < 0 || this.x > 1000 || this.y < 0 || this.y > 800) {
+        if (this.x < 0 - this.radius * 3 || this.x > 1000 + this.radius * 3 || this.y < 0 - this.radius * 3 || this.y > 800 + this.radius * 3) {
           setup();
           return;
         }
@@ -68,7 +68,8 @@ public class Player {
         // draw the player
         if (this.charge > 0) {
           // proton
-          fill(0, 0, 255);
+          fill(#5386E4);
+          stroke(#5386F4);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           line(x - 6, y, x + 6, y);
@@ -76,14 +77,15 @@ public class Player {
         }
         else if (this.charge < 0) {
           // electron
-          fill(255, 0, 0);
+          fill(#F25757);
+          stroke(#FF5757);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           line(x - 6, y, x + 6, y);
         }
         else {
             // neutral
-            fill(200);
+            fill(#E7E7E7);
             circle(this.x, this.y, this.radius);
         }
 

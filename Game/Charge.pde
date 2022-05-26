@@ -45,16 +45,16 @@ public class Charge {
 
     // sets up colors and stroke for the charge
       if (this.charge > 0) {
-        fill(0, 0, 255);
-        stroke(0, 0, 100);
+        fill(#5386E4);
+        stroke(#5386F4);
       } else {
-        fill(255, 0, 0);
-        stroke(100, 0, 0);
+        fill(#F25757);
+        stroke(#FF5757);
       }
 
       if (this.isConstant) {
-        fill(100, 100, 100);
-        stroke(100, 100, 100);
+        fill(#E7E7E7);
+        stroke(230);
       }
 
     // draws the charge
@@ -63,6 +63,13 @@ public class Charge {
     // draws the markings on the charge
 
       stroke(255);
+      if (this.isConstant) {
+        if (this.charge > 0) {
+          stroke(#5386E4);
+        } else {
+          stroke(#F25757);
+        } 
+      }
       strokeWeight(abs(this.charge));
 
       if (this.charge > 0) {
