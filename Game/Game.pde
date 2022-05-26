@@ -9,7 +9,7 @@ public ArrayList<Pit> pitList;
 public boolean reversedField, launched;
 
 public Button startButton;
-public Button controlsButton;
+// public Button controlsButton;
 
 public Player player;
 public Cannon cannon;
@@ -18,18 +18,19 @@ public Goal goal;
 public int level = 0;
 public Level currentLevel;
 
-public boolean controlsScreen = false;
+public boolean controlsScreen;
 
 
 public void setup() {
   size(1000, 800);
   ellipseMode(CENTER);
-  startButton = new Button(width/2 - 300, height/2 - 50, width/2 - 100, height/2 + 50, "Start");
-  controlsButton = new Button(width/2 + 100, height/2 - 50, width/2 + 300, height/2 + 50, "Controls");
+  startButton = new Button(width/2 - 100, height/2 - 50, width/2 + 100, height/2 + 50, "Start");
+  // controlsButton = new Button(width/2 + 75, height/2 - 50, width/2 + 325, height/2 + 50, "Controls");
 
   // sets up map and player
   reversedField = false;
   launched = false;
+  controlsScreen = false;
 
   if (level > 0) {
     updateLevel(parseLevelFile("level" + level));
@@ -48,10 +49,18 @@ public void draw() {
       level++;
       setup();
     }
+
+    textSize(24);
+    text("Level " + level, 25, 25);
+    text("Press 'c' to toggle controls", 25, 50);
+    textSize(50);
   }
   else if (level == 0) {
+    textAlign(CENTER);
+    text("Swappy Charge", width/2, height/2 - 200);
+    textAlign(LEFT);
     drawTitle();
-    controlsButton.draw();
+    // controlsButton.draw();
   }
   else if (level < 0) {
     drawGameOver();
@@ -77,15 +86,30 @@ public void drawGameOver() {
 public void drawControls() {
   textSize(50);
   // textAlign(CENTER);
-  fill(255, 0, 0);
   // text("CONTROLS", 20, 680 - 100);
-  textSize(25);
-  text("Aim: CURSOR", 20, 680 - 50);
-  text("Shoot: LEFT CLICK", 20, 680);
-  text("Flip Charges: SPACE", 20, 680 + 50);
-  text("Restart Level: BACKSPACE", 20, 680 + 100);
 
-  // textAlign(LEFT);
+  fill(230, 230, 230, 200);
+  rect(300, 100, 400, 600, 10);
+  fill(200, 200, 200, 200);
+  rect(305, 105, 390, 590, 10);
+
+
+  textAlign(CENTER);
+
+  fill(0);
+  text("CONTROLS", 500, 200);
+  fill(30);
+  textSize(25);
+  text("Aim: CURSOR", 500, 300);
+  text("Shoot: LEFT CLICK", 500, 350);
+  text("Flip Charges: SPACE", 500, 400);
+  text("Restart Level: BACKSPACE", 500, 450);
+  text("Skip Level: 's'", 500, 500);
+
+  fill(255, 255, 255);
+  textSize(50);
+
+  textAlign(LEFT);
 }
 
 /* DRAWS ELEMENTS */
@@ -364,9 +388,9 @@ public void mousePressed() {
     }
   }
 
-  if (level == 0 && mouseButton == LEFT) {
-    if (controlsButton.isClicked(mouseX, mouseY)) {
-      controlsScreen = !controlsScreen;
-    }
-  }
+  // if (level == 0 && mouseButton == LEFT) {
+  //   if (controlsButton.isClicked(mouseX, mouseY)) {
+  //     controlsScreen = !controlsScreen;
+  //   }
+  // }
 }
