@@ -60,6 +60,7 @@ public void draw() {
     text("Swappy Charge", width/2, height/2 - 200);
     textAlign(LEFT);
     drawTitle();
+
     // controlsButton.draw();
   }
   else if (level < 0) {

@@ -13,7 +13,7 @@ public class Pit {
 
 
     public boolean isTouchingPlayer(Player p) {
-        return p.x + (p.radius + thickness) / 2 >= min(x1, x2) && p.x - (p.radius + thickness) / 2 <= max(x1, x2) && p.y + (p.radius + thickness) / 2 >= min(y1, y2) && p.y - (p.radius + thickness) / 2 <= max(y1, y2);
+        return p.x + (p.radius + thickness / 2) / 2 >= min(x1, x2) && p.x - (p.radius + thickness / 2) / 2 <= max(x1, x2) && p.y + (p.radius + thickness / 2) / 2 >= min(y1, y2) && p.y - (p.radius + thickness / 2) / 2 <= max(y1, y2);
     }
 
     public float quadraticFormula(float a, float b, float c) {
