@@ -27,7 +27,7 @@ public class PickupCharge {
         if (this.charge > 0) {
           // proton
           fill(#5386E4);
-          stroke(#5386F4);
+          stroke(#FFAE03);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           stroke(255);
@@ -37,7 +37,7 @@ public class PickupCharge {
         else {
           // electron
           fill(#F25757);
-          stroke(#FF5757);
+          stroke(#FFAE03);
           circle(this.x, this.y, this.radius);
           strokeWeight(6);
           stroke(255);

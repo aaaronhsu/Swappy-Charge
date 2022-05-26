@@ -38,7 +38,7 @@ public void setup() {
 }
 
 public void draw() {
-  background(#151515);
+  background(#101010);
 
   if (level > 0) {
     drawElements();
