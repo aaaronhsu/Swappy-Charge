@@ -13,13 +13,13 @@ public class Button {
     }
 
     public void draw() {
-        fill(100);
+        fill(#E7E7E7);
         rect(x1, y1, x2 - x1, y2 - y1, 10);
-        fill(255);
 
-        stroke(0);
+        fill(#1ED01E);
         textSize(50);
-        text(text, x1 + (x2 - x1) / 2 - textWidth(text) / 2, y1 + (y2 - y1) / 2 + textAscent() / 2);
+        text(text, x1 + (x2 - x1) / 2 - textWidth(text) / 2, y1 + (y2 - y1) / 2 + textAscent() / 2 - 8);
+        fill(255);
     }
 
     public boolean isClicked(int x, int y) {
