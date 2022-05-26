@@ -1,6 +1,8 @@
 // VARIABLE SETUP
 public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 
+public LevelInfo levelInfo = new LevelInfo();
+
 public ArrayList<Charge> chargeList;
 public ArrayList<Wall> wallList;
 public ArrayList<PickupCharge> pickupChargeList;
@@ -55,7 +57,7 @@ public void draw() {
     text("Press 'c' to toggle controls", 25, 50);
     textSize(50);
 
-    // drawLevelInfo();
+    if (!launched) levelInfo.drawLevelInfo(level);
   }
   else if (level == 0) {
     textAlign(CENTER);
