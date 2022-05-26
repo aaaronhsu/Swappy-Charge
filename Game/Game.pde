@@ -54,6 +54,8 @@ public void draw() {
     text("Level " + level, 25, 25);
     text("Press 'c' to toggle controls", 25, 50);
     textSize(50);
+
+    // drawLevelInfo();
   }
   else if (level == 0) {
     textAlign(CENTER);
