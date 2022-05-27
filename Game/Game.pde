@@ -81,7 +81,7 @@ public void draw() {
     drawControls();
   }
 
-  println("(" + mouseX + ", " + mouseY + ")");
+  // println("(" + mouseX + ", " + mouseY + ")");
 }
 
 public void drawTitle() {
