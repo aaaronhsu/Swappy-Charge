@@ -19,6 +19,7 @@ public int level = 0;
 public Level currentLevel;
 
 public boolean controlsScreen;
+public boolean showElectricField = false;
 
 
 public void setup() {
@@ -55,6 +56,10 @@ public void draw() {
     text("Press 'c' to toggle controls", 25, 50);
     textSize(50);
 
+    if (showElectricField) {
+      drawElectricField();
+    }
+
     // drawLevelInfo();
   }
   else if (level == 0) {
@@ -77,6 +82,55 @@ public void draw() {
 
 public void drawTitle() {
   startButton.draw();
+}
+
+public void drawElectricField() {
+
+  if (reversedField) {
+    for (int i = 0; i < xFieldRev.length; i += 50) {
+      for (int j = 0; j < xFieldRev[i].length; j += 50) {
+        float opacity = (xFieldRev[i][j] * xFieldRev[i][j] + yFieldRev[i][j] * yFieldRev[i][j]) * 100000000;
+        float len = 25;
+
+        float theta = atan2(yFieldRev[i][j], xFieldRev[i][j]);
+
+        stroke(255, opacity / 255);
+        strokeWeight(1);
+        pushMatrix();
+        translate(i, j);
+        rotate(theta);
+        line(0,0,len, 0);
+        line(len, 0, len - 5, -5);
+        line(len, 0, len - 5, 5);
+        popMatrix();
+        stroke(0);
+        strokeWeight(3);  
+      }
+    }
+  }
+  else {
+    for (int i = 0; i < xField.length; i += 50) {
+      for (int j = 0; j < xField[i].length; j += 50) {
+        float opacity = (xField[i][j] * xField[i][j] + yField[i][j] * yField[i][j]) * 100000000;
+        float len = 25;
+
+
+        float theta = atan2(yField[i][j], xField[i][j]);
+
+        stroke(255, opacity / 255);
+        strokeWeight(1);
+        pushMatrix();
+        translate(i, j);
+        rotate(theta);
+        line(0,0,len, 0);
+        line(len, 0, len - 5, -5);
+        line(len, 0, len - 5, 5);
+        popMatrix();
+        stroke(0);
+        strokeWeight(3);  
+      }
+    }
+  }
 }
 
 public void drawGameOver() {
@@ -358,6 +412,10 @@ public void keyPressed() {
 
   if (key == 'c') {
     controlsScreen = !controlsScreen;
+  }
+
+  if (level > 0 && key == 't') {
+    showElectricField = !showElectricField;
   }
 }
 
