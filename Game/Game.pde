@@ -21,6 +21,7 @@ public int level = 0;
 public Level currentLevel;
 
 public boolean controlsScreen;
+public boolean showElectricField = false;
 
 
 public void setup() {
@@ -58,6 +59,10 @@ public void draw() {
     textSize(50);
 
     if (!launched) levelInfo.drawLevelInfo(level);
+    
+    if (showElectricField) {
+      drawElectricField();
+    }
   }
   else if (level == 0) {
     textAlign(CENTER);
@@ -81,6 +86,67 @@ public void draw() {
 
 public void drawTitle() {
   startButton.draw();
+}
+
+public void drawElectricField() {
+
+  if (reversedField) {
+    for (int i = 0; i < xFieldRev.length; i += 50) {
+      for (int j = 0; j < xFieldRev[i].length; j += 50) {
+        float opacity = (xFieldRev[i][j] * xFieldRev[i][j] + yFieldRev[i][j] * yFieldRev[i][j]) * 100000000;
+        float len = 25;
+
+        float theta = atan2(yFieldRev[i][j], xFieldRev[i][j]);
+
+        stroke(255, opacity / 255);
+        strokeWeight(1);
+        pushMatrix();
+        translate(i, j);
+        rotate(theta);
+        line(0,0,len, 0);
+        line(len, 0, len - 5, -5);
+        line(len, 0, len - 5, 5);
+        popMatrix();
+        stroke(0);
+        strokeWeight(3);
+
+        fill(255, 50);
+        stroke(255, 50);
+        if (opacity == 0) ellipse(i, j, 3, 3);
+        fill(255);
+        stroke(0);
+      }
+    }
+  }
+  else {
+    for (int i = 0; i < xField.length; i += 50) {
+      for (int j = 0; j < xField[i].length; j += 50) {
+        float opacity = (xField[i][j] * xField[i][j] + yField[i][j] * yField[i][j]) * 100000000;
+        float len = 25;
+
+
+        float theta = atan2(yField[i][j], xField[i][j]);
+
+        stroke(255, opacity / 255);
+        strokeWeight(1);
+        pushMatrix();
+        translate(i, j);
+        rotate(theta);
+        line(0,0,len, 0);
+        line(len, 0, len - 5, -5);
+        line(len, 0, len - 5, 5);
+        popMatrix();
+        stroke(0);
+        strokeWeight(3);  
+
+        fill(255, 50);
+        stroke(255, 50);
+        if (opacity == 0) ellipse(i, j, 3, 3);
+        fill(255);
+        stroke(0);
+      }
+    }
+  }
 }
 
 public void drawGameOver() {
@@ -112,6 +178,7 @@ public void drawControls() {
   text("Flip Charges: SPACE", 500, 400);
   text("Restart Level: BACKSPACE", 500, 450);
   text("Skip Level: 's'", 500, 500);
+  text("Toggle Electric Field: 't'", 500, 550);
 
   fill(255, 255, 255);
   textSize(50);
@@ -362,6 +429,10 @@ public void keyPressed() {
 
   if (key == 'c') {
     controlsScreen = !controlsScreen;
+  }
+
+  if (level > 0 && key == 't') {
+    showElectricField = !showElectricField;
   }
 }
 
