@@ -104,7 +104,13 @@ public void drawElectricField() {
         line(len, 0, len - 5, 5);
         popMatrix();
         stroke(0);
-        strokeWeight(3);  
+        strokeWeight(3);
+
+        fill(255, 50);
+        stroke(255, 50);
+        if (opacity == 0) ellipse(i, j, 3, 3);
+        fill(255);
+        stroke(0);
       }
     }
   }
@@ -128,6 +134,12 @@ public void drawElectricField() {
         popMatrix();
         stroke(0);
         strokeWeight(3);  
+
+        fill(255, 50);
+        stroke(255, 50);
+        if (opacity == 0) ellipse(i, j, 3, 3);
+        fill(255);
+        stroke(0);
       }
     }
   }
@@ -162,6 +174,7 @@ public void drawControls() {
   text("Flip Charges: SPACE", 500, 400);
   text("Restart Level: BACKSPACE", 500, 450);
   text("Skip Level: 's'", 500, 500);
+  text("Toggle Electric Field: 't'", 500, 550);
 
   fill(255, 255, 255);
   textSize(50);
