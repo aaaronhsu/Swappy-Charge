@@ -69,23 +69,24 @@ public class Player {
         if (this.charge > 0) {
           // proton
           fill(#5386E4);
-          stroke(#5386F4);
+          stroke(255);
           circle(this.x, this.y, this.radius);
-          strokeWeight(6);
+          strokeWeight(3);
           line(x - 6, y, x + 6, y);
           line(x, y - 6, x, y + 6);
         }
         else if (this.charge < 0) {
           // electron
           fill(#F25757);
-          stroke(#FF5757);
+          stroke(255);
           circle(this.x, this.y, this.radius);
-          strokeWeight(6);
+          strokeWeight(3);
           line(x - 6, y, x + 6, y);
         }
         else {
             // neutral
             fill(#E7E7E7);
+            stroke(255);
             circle(this.x, this.y, this.radius);
         }
 
