@@ -17,7 +17,7 @@ public Player player;
 public Cannon cannon;
 public Goal goal;
 
-public int level = 0;
+public int level = 7;
 public Level currentLevel;
 
 public boolean controlsScreen;
@@ -75,6 +75,8 @@ public void draw() {
   if (controlsScreen) {
     drawControls();
   }
+
+  println("(" + mouseX + ", " + mouseY + ")");
 }
 
 public void drawTitle() {
