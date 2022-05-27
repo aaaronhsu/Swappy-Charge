@@ -17,7 +17,7 @@ public Player player;
 public Cannon cannon;
 public Goal goal;
 
-public int level = 7;
+public int level = 0;
 public Level currentLevel;
 
 public boolean controlsScreen;

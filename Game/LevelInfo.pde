@@ -4,6 +4,7 @@ public class LevelInfo {
 
         textAlign(CENTER);
         textSize(24);
+        fill(200);
         int len = 150;
         
         switch(level) {
@@ -54,7 +55,7 @@ public class LevelInfo {
       // find angle of line
       float angle = atan2(y2 - y1, x2 - x1);
 
-      stroke(255);
+      stroke(200);
       strokeWeight(3);
       pushMatrix();
       translate(x1, y1);
