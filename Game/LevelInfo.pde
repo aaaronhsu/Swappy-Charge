@@ -20,7 +20,7 @@ public class LevelInfo {
             case 2:
                 text("This is a constant negative charge", width/2 + 100, 200);
                 text("it produces an electric field", width/2 + 100, 600);
-                text("that affects the ball's velocity", width/2 + 100, 640);
+                text("that affects the ball's movement", width/2 + 100, 640);
                 text("Press 't' to toggle the field", width/2 + 100, 680);
 
                 drawArrow(600, 225, 600, 355);
