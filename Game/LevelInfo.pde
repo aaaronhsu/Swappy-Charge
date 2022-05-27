@@ -5,7 +5,6 @@ public class LevelInfo {
         textAlign(CENTER);
         textSize(24);
         fill(200);
-        int len = 150;
         
         switch(level) {
             case 1:
