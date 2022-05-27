@@ -1,4 +1,4 @@
-// VARIABLE SETUP
+/ VARIABLE SETUP
 public float[][] xField, yField, xFieldRev, yFieldRev = new float[1600][900];
 
 public LevelInfo levelInfo = new LevelInfo();
@@ -36,22 +36,7 @@ public void setup() {
   controlsScreen = false;
 
   if (level > 0) {
-
-    if (currentLevel == null) {
-      currentLevel = parseLevelFile(1);
-      updateLevel(currentLevel);
-    }
-    else if (level != currentLevel.levelNum) {
-      // THE PLAYER PASSED THE LEVEL
-      // println("Loading level " + level + "... the level used to be " + currentLevel.levelNum);
-      Level newLevel = parseLevelFile(level);
-      updateLevel(newLevel);
-      currentLevel = newLevel;
-    }
-    else {
-      // THE PLAYER FAILED THE LEVEL
-      player = new Player(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
-    }
+    updateLevel(parseLevelFile("level" + level), level != currentLevel.levelNum);
   }
 }
 
@@ -245,7 +230,9 @@ public void checkPickupChargeCollision() {
       player.xVel *= (float) player.mass / (player.mass + 1);
       player.yVel *= (float) player.mass / (player.mass + 1);
 
-      player.radius += 10;
+      if (abs(player.charge) <= 1) {
+        player.radius = 30;
+      }
 
       removeList.add(c);
     }
@@ -315,9 +302,9 @@ public void sumElectricField() {
     }
 }
 
-public Level parseLevelFile(int level) {
+public Level parseLevelFile(String filename) {
   // reads map data
-    String[] rawLevel = loadStrings("levels/level" + level);
+    String[] rawLevel = loadStrings("levels/" + filename);
 
   // creates level variables
     Player player = new Player(0, 0, 0, 0, -1, 30, false);
@@ -397,22 +384,20 @@ public Level parseLevelFile(int level) {
         }
     }
     
-    return new Level(player, goal, chargeList, pickupChargeList, wallList, pitList, level);
+    return new Level(player, goal, chargeList, pickupChargeList, wallList, pitList, int(filename.substring(filename.length() - 1)));
 }
 
-public void updateLevel(Level l) {
+public void updateLevel(Level l, boolean recalculateElectricField) {
   // takes level variables and updates game
-
-    // println("updating level " + l.levelNum);
     this.player = l.player;
-
     this.cannon = l.cannon;
     this.goal = l.goal;
     this.chargeList = l.chargeList;
     this.pickupChargeList = l.pickupChargeList;
     this.wallList = l.wallList;
     this.pitList = l.pitList;
-    sumElectricField();
+
+    if (recalculateElectricField) sumElectricField();
 }
 
 
