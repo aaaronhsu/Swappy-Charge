@@ -30,6 +30,6 @@ You may view the controls in-game by pressing `c`.
 By observing the interactions between the launched particle and the surrounding charges, the player will recognize that particles of opposite charges attract and those of similar charges repel. Launching the charge at different angles also reveals that electric fields are stronger when the radial distance from the center of the charge is smaller. Laws of the conservation of momentum and principles involving elastic and inelastic collisions are demonstrated when the charge collides with stationary walls and “pickup” charges (charges that affect both the velocity and charge of the proton).
 
 ## Screenshots
-![level2](\screenshots/level2_screenshot.png)
-![level7](\screenshots/level7_screenshot.png)
-![level10](\screenshots/level10_screenshot.png)
+![level2](https://github.com/chicknmilk/electricity/blob/main/screenshots/level2_screenshot.png)
+![level7](https://github.com/chicknmilk/electricity/blob/main/screenshots/level7_screenshot.png)
+![level10](https://github.com/chicknmilk/electricity/blob/main/screenshots/level10_screenshot.png)
