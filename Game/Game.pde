@@ -19,6 +19,7 @@ public Goal goal;
 
 public int level = 0;
 public Level currentLevel;
+public int deaths = 0;
 
 public boolean controlsScreen;
 public boolean showElectricField = false;
@@ -51,6 +52,7 @@ public void setup() {
     else {
       // THE PLAYER FAILED THE LEVEL
       player = new Player(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
+      deaths++;
     }
   }
 }
@@ -74,7 +76,11 @@ public void draw() {
     textSize(24);
     text("Level " + level, 25, 25);
     text("Press 'c' to toggle controls", 25, 50);
+
+    textAlign(RIGHT);
+    text("Deaths: " + deaths, 980, 780);
     textSize(50);
+    textAlign(LEFT);
 
     if (!launched) levelInfo.drawLevelInfo(level);
     
