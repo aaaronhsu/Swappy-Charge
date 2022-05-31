@@ -11,7 +11,6 @@ public ArrayList<Pit> pitList;
 public boolean reversedField, launched;
 
 public Button startButton;
-public Button victoryButton;
 // public Button controlsButton;
 
 public Player player;
@@ -24,7 +23,6 @@ public int deaths = 0;
 
 public boolean controlsScreen;
 public boolean showElectricField = false;
-public boolean victory = false;
 
 
 public void setup() {
@@ -47,16 +45,7 @@ public void setup() {
     else if (level != currentLevel.levelNum) {
       // THE PLAYER PASSED THE LEVEL
       // println("Loading level " + level + "... the level used to be " + currentLevel.levelNum);
-
-      Level newLevel;
-
-      try {
-        newLevel = parseLevelFile(level);
-      } catch (Exception e) {
-        victory = true;
-        victoryButton = new Button(width/2 - 150, height/2 + 25, width/2 + 150, height/2 + 125, "Play Again?");
-        return;
-      }
+      Level newLevel = parseLevelFile(level);
       updateLevel(newLevel);
       currentLevel = newLevel;
     }
@@ -71,10 +60,7 @@ public void setup() {
 public void draw() {
   background(#101010);
 
-  if (victory) {
-    drawVictory();
-  }
-  else if (level > 0) {
+  if (level > 0) {
     if (showElectricField) {
       drawElectricField();
     }
@@ -117,13 +103,6 @@ public void draw() {
   }
 
   // println("(" + mouseX + ", " + mouseY + ")");
-}
-
-public void drawVictory() {
-  textAlign(CENTER);
-  text("WINNER WINNER 🐔🍽️", width/2, height/2 - 200);
-  textAlign(LEFT);
-  victoryButton.draw();
 }
 
 public void drawTitle() {
@@ -504,15 +483,6 @@ public void mousePressed() {
   if (level == 0 && mouseButton == LEFT) {
     if (startButton.isClicked(mouseX, mouseY)) {
       level = 1;
-      setup();
-    }
-  }
-
-  if (victory && mouseButton == LEFT) {
-    if (victoryButton.isClicked(mouseX, mouseY)) {
-      level = 0;
-      deaths = 0;
-      victory = false;
       setup();
     }
   }
