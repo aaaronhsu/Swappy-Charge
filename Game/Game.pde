@@ -12,6 +12,7 @@ public boolean reversedField, launched;
 
 public Button startButton;
 public Button victoryButton;
+public Button chickenifyButton = new Button(width/2 - 150, height/2 + 225, width/2 + 150, height/2 + 325, "CHICKENIFY!!!");
 // public Button controlsButton;
 
 public Player player;
@@ -25,6 +26,8 @@ public int deaths = 0;
 public boolean controlsScreen;
 public boolean showElectricField = false;
 public boolean victory = false;
+
+public boolean chickenify = false;
 
 
 public void setup() {
@@ -62,7 +65,9 @@ public void setup() {
     }
     else {
       // THE PLAYER FAILED THE LEVEL
-      player = new Player(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
+      if (chickenify) player = new Chicken(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
+      else player = new Player(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
+
       deaths++;
     }
   }
@@ -101,7 +106,9 @@ public void draw() {
   }
   else if (level == 0) {
     textAlign(CENTER);
-    text("Swappy Charge", width/2, height/2 - 200);
+    if (chickenify) text("CHICKENIFIED SWAPPY CHARGE", width/2, height/2 - 200);
+    else text("Swappy Charge", width/2, height/2 - 200);
+    
     textAlign(LEFT);
     drawTitle();
 
@@ -128,6 +135,7 @@ public void drawVictory() {
 
 public void drawTitle() {
   startButton.draw();
+  chickenifyButton.draw();
 }
 
 public void drawElectricField() {
@@ -364,7 +372,8 @@ public Level parseLevelFile(int level) {
             int y = Integer.parseInt(data[2]);
             int charge = Integer.parseInt(data[3]);
 
-            player = new Player(x, y, 0, 0, charge, 30, false);
+            if (chickenify) player = new Chicken(x, y, 0, 0, charge, 30, false);
+            else player = new Player(x, y, 0, 0, charge, 30, false);
         }
 
         // stores goal info
@@ -432,7 +441,6 @@ public void updateLevel(Level l) {
 
     // println("updating level " + l.levelNum);
     this.player = l.player;
-
     this.cannon = l.cannon;
     this.goal = l.goal;
     this.chargeList = l.chargeList;
@@ -514,6 +522,12 @@ public void mousePressed() {
       deaths = 0;
       victory = false;
       setup();
+    }
+  }
+
+  if (level == 0 && mouseButton == LEFT) {
+    if (chickenifyButton.isClicked(mouseX, mouseY)) {
+      chickenify = !chickenify;
     }
   }
 
