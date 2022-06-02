@@ -12,6 +12,11 @@ public class Chicken extends Player {
     }
 
     public float calculateTorque(int vX, int vY, float[][] x_field, float[][] y_field) {
+        if (vX < 0) vX = 0;
+        else if (vX > 999) vX = 999;
+        if (vY < 0) vY = 0;
+        else if (vY > 799) vY = 799;
+
         float cXVector = vX - x;
         float cYVector = vY - y;
         float fXVector = x_field[vX][vY];
@@ -58,21 +63,26 @@ public class Chicken extends Player {
         pushMatrix();
         translate(x, y);
         rotate(angle - (float) Math.PI / 8);
+
+        pushMatrix();
+        // translate(-35 * sin(angle), -35 * cos(angle));
         image(chicken, 0, 0);
+        popMatrix();
         
-        if (this.charge > 0) {
-          // proton
-          stroke(#5386E4);
-          strokeWeight(5);
-          line(0 - 10, 0, 0 + 10, 0);
-          line(0, 0 - 10, 0, 0 + 10);
-        }
-        else if (this.charge < 0) {
-          // electron
-          stroke(#F25757);
-          strokeWeight(5);
-          line(0 - 10, 0, 0 + 10, 0);
-        }
+        // if (this.charge > 0) {
+        //   // proton
+        //   stroke(#5386E4);
+        //   strokeWeight(5);
+        //   line(0 - 10, 0, 0 + 10, 0);
+        //   line(0, 0 - 10, 0, 0 + 10);
+        // }
+        // else if (this.charge < 0) {
+        //   // electron
+        //   stroke(#F25757);
+        //   strokeWeight(5);
+        //   line(0 - 10, 0, 0 + 10, 0);
+        // }
+
         stroke(255);
         popMatrix();
 

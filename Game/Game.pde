@@ -12,7 +12,7 @@ public boolean reversedField, launched;
 
 public Button startButton;
 public Button victoryButton;
-public Button chickenifyButton = new Button(width/2 - 150, height/2 + 225, width/2 + 150, height/2 + 325, "CHICKENIFY!!!");
+public Button chickenifyButton = new Button(350, 600, 650, 750, "CHICKENIFY");
 // public Button controlsButton;
 
 public Player player;
@@ -97,6 +97,9 @@ public void draw() {
     text("Press 'c' to toggle controls", 25, 50);
 
     textAlign(RIGHT);
+    if (chickenify) text("Chicken Charge: " + player.charge, 980, 25);
+    else text("Charge: " + player.charge, 980, 25);
+    
     text("Deaths: " + deaths, 980, 780);
     textSize(50);
     textAlign(LEFT);
