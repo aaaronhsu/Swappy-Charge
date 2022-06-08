@@ -41,6 +41,13 @@ public class LevelInfo {
               text("This is a wall", 240, 180);
               drawArrow(324, 150, 324, 112);
               break;
+            
+            case 11:
+              text("Rotating charges can be picked up", 500, 90);
+              text("to modify the player's charge", 500, 120);
+
+              text("They do not change the electric field", 500, 700);
+              break;
         }
 
         textAlign(LEFT);
