@@ -8,8 +8,6 @@ public ArrayList<Wall> wallList;
 public ArrayList<PickupCharge> pickupChargeList;
 public ArrayList<Pit> pitList;
 
-public ArrayList<PickupCharge> removedPickupCharges = new ArrayList<PickupCharge>();
-
 public boolean reversedField, launched;
 
 public Button startButton;
@@ -21,7 +19,7 @@ public Player player;
 public Cannon cannon;
 public Goal goal;
 
-public int level = 0;
+public int level = 12;
 public Level currentLevel;
 public int deaths = 0;
 
@@ -46,7 +44,7 @@ public void setup() {
   if (level > 0) {
 
     if (currentLevel == null) {
-      currentLevel = parseLevelFile(1);
+      currentLevel = parseLevelFile(12);
       updateLevel(currentLevel);
     }
     else if (level != currentLevel.levelNum) {
@@ -67,17 +65,8 @@ public void setup() {
     }
     else {
       // THE PLAYER FAILED THE LEVEL
-      if (chickenify) {
-        player = new Chicken(cannon.x, cannon.y, 0, 0, 1, 30, false);
-      }
-      else {
-        player = new Player(cannon.x, cannon.y, 0, 0, 1, 30, false);
-      }
-
-      for (PickupCharge c : removedPickupCharges) {
-        pickupChargeList.add(c);
-      }
-      removedPickupCharges.clear();
+      if (chickenify) player = new Chicken(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
+      else player = new Player(cannon.x, cannon.y, 0, 0, player.charge, 30, false);
 
       for (Charge c : chargeList) {
         c.charge = c.initialCharge;
@@ -305,7 +294,6 @@ public void checkPickupChargeCollision() {
     }
   }
   for (PickupCharge c : removeList) {
-    removedPickupCharges.add(c);
     pickupChargeList.remove(c);
   }
 }

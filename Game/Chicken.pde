@@ -63,6 +63,12 @@ public class Chicken extends Player {
         pushMatrix();
         translate(x, y);
         rotate(angle - (float) Math.PI / 8);
+        if (!launched) {
+            rotate(atan2(mouseY - y, mouseX - x));
+        }
+
+        translate(-35 * cos(angle), -27.5 * sin(angle);
+
 
         pushMatrix();
         // translate(-35 * sin(angle), -35 * cos(angle));

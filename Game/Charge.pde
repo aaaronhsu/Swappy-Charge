@@ -3,7 +3,7 @@ public float K = 1/(4 * PI * 8.85 * 10e-6);
 public class Charge {
 
   // characteristics of the charge
-  int x, y, charge, radius;
+  int x, y, charge, radius, initialCharge;
   boolean isConstant;
 
   // electric field the charge creates in unit vector notation
@@ -14,6 +14,7 @@ public class Charge {
     this.x = x;
     this.y = y;
     this.charge = initialCharge;
+    this.initialCharge = initialCharge;
     this.radius = (int) (radius * ((float) abs(initialCharge) / 10)) + 1;
     this.isConstant = isConstant;
 

@@ -1,0 +1,7 @@
+player 500 300 1
+goal 300 600 700 650
+pit 400 400 600 400 10
+constantcharge 100 150 -5
+constantcharge 900 700 -5
+charge 900 150 7
+charge 100 700 7

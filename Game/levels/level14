@@ -1,0 +1,12 @@
+wall 100 100 100 700 5
+player 350 300 1
+pit 600 25 600 225 10
+pit 600 575 600 775 10
+pickupcharge 600 275 1
+pickupcharge 600 400 -1
+pickupcharge 600 525 1
+charge 700 225 5
+charge 800 225 5
+charge 700 575 -5
+charge 800 575 -5
+goal 850 350 950 450
