@@ -20,7 +20,7 @@ public class LevelInfo {
                 text("White charges are constant", width/2 + 100, 200);
                 text("this negative charge produces an electric field", width/2 + 100, 600);
                 text("that affects the ball's movement", width/2 + 100, 640);
-                text("Press 't' to toggle the field", width/2 + 100, 680);
+                text("Press 't' to toggle the electric field view", width/2 + 100, 680);
 
                 drawArrow(600, 225, 600, 355);
                 break;
