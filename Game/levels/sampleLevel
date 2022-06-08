@@ -1,6 +1,0 @@
-player x y charge
-goal x1 y1 x2 y2
-charge x y charge
-constantcharge x y charge
-wall x1 y1 x2 y2 thickness
-pit x1 y1 x2 y2 thickness
