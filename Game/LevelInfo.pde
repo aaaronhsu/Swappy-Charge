@@ -17,8 +17,8 @@ public class LevelInfo {
                 break;
             
             case 2:
-                text("This is a constant negative charge", width/2 + 100, 200);
-                text("it produces an electric field", width/2 + 100, 600);
+                text("White charges are constant", width/2 + 100, 200);
+                text("this negative charge produces an electric field", width/2 + 100, 600);
                 text("that affects the ball's movement", width/2 + 100, 640);
                 text("Press 't' to toggle the field", width/2 + 100, 680);
 
@@ -26,7 +26,7 @@ public class LevelInfo {
                 break;
 
             case 3:
-              text("This is an alternating charge", 250, 200);
+              text("Colored charges are able to be negated!", 250, 200);
               text("press SPACE to swap it", 250, 600);
 
               drawArrow(107, 220, 83, 335);
@@ -38,7 +38,7 @@ public class LevelInfo {
               break;
 
             case 8:
-              text("This is an elastic wall", 240, 180);
+              text("This is a wall", 240, 180);
               drawArrow(324, 150, 324, 112);
               break;
         }

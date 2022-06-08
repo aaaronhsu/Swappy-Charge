@@ -1,17 +1,12 @@
-player 100 100 1
-pit 50 50 150 50 5
-pit 50 50 50 150 5
-pit 150 50 150 115 5
-pit 50 150 115 150 5
-charge 200 350 4
-charge 250 600 4
-constantcharge 425 678 -3
-constantcharge 590 168 -3
-charge 800 460 4
-charge 875 245 4
-pickupcharge 300 300 1
-pickupcharge 400 375 -1
-pickupcharge 375 515 -1
-pickupcharge 600 489 -1
-pickupcharge 590 365 1
-goal 800 600 900 650
+player 200 100 1
+charge 400 150 2
+charge 500 250 2
+charge 600 350 2
+charge 700 450 2
+charge 800 550 2
+charge 100 200 -2
+charge 200 300 -2
+charge 300 400 -2
+charge 400 500 -2
+charge 500 600 -2
+goal 650 650 850 700

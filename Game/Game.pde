@@ -35,7 +35,7 @@ public boolean chickenify = false;
 public void setup() {
   size(1000, 800);
   ellipseMode(CENTER);
-  startButton = new Button(width/2 - 100, height/2 + 25, width/2 + 100, height/2 + 125, "Start");
+  startButton = new Button(width/2 - 100, height/2 - 50, width/2 + 100, height/2 + 50, "Start");
   // controlsButton = new Button(width/2 + 75, height/2 - 50, width/2 + 325, height/2 + 50, "Controls");
 
   // sets up map and player
@@ -53,6 +53,9 @@ public void setup() {
       // THE PLAYER PASSED THE LEVEL
       // println("Loading level " + level + "... the level used to be " + currentLevel.levelNum);
 
+      pickupChargeList = new ArrayList<PickupCharge>();
+      removedPickupCharges = new ArrayList<PickupCharge>();
+      
       Level newLevel;
 
       try {
@@ -76,8 +79,10 @@ public void setup() {
 
       for (PickupCharge c : removedPickupCharges) {
         pickupChargeList.add(c);
+        println("pickup added");
       }
-      removedPickupCharges.clear();
+
+      removedPickupCharges = new ArrayList<PickupCharge>();
 
       for (Charge c : chargeList) {
         c.charge = c.initialCharge;
@@ -147,7 +152,7 @@ public void draw() {
 
 public void drawVictory() {
   textAlign(CENTER);
-  text("WINNER WINNER 🐔🍽️", width/2, height/2 - 200);
+  text("WINNER WINNER CHICKEN DINNER!", width/2, height/2 - 200);
   textAlign(LEFT);
   victoryButton.draw();
 }
