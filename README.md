@@ -1,5 +1,7 @@
 # Swappy Charge
 
+[Video Demo](https://youtu.be/P-5qF49NRmY)
+
 ## Description
 Swappy Charge is a game that demonstrates the effect of electric fields on a charged particle. Players are tasked with launching a charged particle through electric fields to reach a goal pad. Players are able to manipulate the electric field by swapping (negating) the charge of certain point particles. There are also other elements of the game such as pits, walls, and pickup charges (charges that can be "picked up" to modify the player's charge). 
 
